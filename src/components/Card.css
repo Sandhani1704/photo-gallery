@@ -1,0 +1,7 @@
+.elements__card {
+    cursor: pointer;
+}
+
+.elements__card-image {
+    width: 275px;
+}
