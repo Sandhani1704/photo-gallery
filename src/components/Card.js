@@ -1,56 +1,42 @@
 import React from 'react';
 import './Card.css';
-import { Link, useRouteMatch } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
-import { getInitialPhotos } from '../utils/Api';
+import { useParams, useHistory } from 'react-router-dom';
+import Preloader from './Preloader';
 
-function Card({ card, onCardClick, cards, cardItem }) {
-
-    const [images, setImages] = React.useState([]);
-    const { path } = useRouteMatch();
-    const { id } = useParams();
-    console.log(cards)   
-    const cardI = cards.find((h) => h.id === id);
+function Card({ images }) {
+    const history = useHistory();
 
 
-    // console.log(cardI)
-    const allImages = cardI;
+    let { id } = useParams();
+    // the object keys start with 0, but the IDs in the API begin at 1
+    id = id - 1;
+    console.log(images)
 
-    React.useEffect(() => {
-        if (allImages === undefined) {
-            return;
-        }
-        setImages(allImages?.slice(0, 5));
-    }, [allImages]);
-
-    function handleClick() {
-        onCardClick(card)
-    }
+    let friends = images; // достаём данные, используя деструктуризацию
+    const friend = friends.find(f => f.id === id);
 
     return (
-        <Link to={`/${card.id}`}>
-            <div id="element">
-                <div className="elements__card">
+        <>
+            <div className="card">
+                <div className="card__container">
 
-                    <img src={card.url} alt={card.title} onClick={handleClick} className="elements__card-image" />
-                    {/* <div className="elements__card-image">
-                        <img src={cardItem.url} alt={cardItem.title} className="image" />
-                        <p className="image__caption">Заголовок: {cardItem.title}</p>
-                        <p className="image__caption">Ссылка на картинку: {cardItem.url}</p>
-                        <p className="image__caption">ID картинки: {cardItem.id}</p>
-                    </div> */}
+                    <div className="card__details">
+                        <h3 className="card__title">Заголовок: {images[id].title}</h3>
+                        <p className="card__id">ID картинки: {images[id].id}</p>
+                        <p className="card__link">Ссылка на картинку: {images[id].url}</p>
 
+                    </div>
+                    <img className="card__pic" src={images[id].url} alt={images[id].title} />
+                    
                 </div>
+                <button className="button button_type_back" onClick={() => history.push('/')}></button>
             </div>
-        </Link>
-        // <div className="image__container">
-        //     <img src={card.url} alt={card.title} className="image" />
-        //     <p className="image__caption">Заголовок: {card.title}</p>
-        //     <p className="image__caption">Ссылка на картинку: {card.url}</p>
-        //     <p className="image__caption">ID картинки: {card.id}</p>
-        // </div>
+            {/* {preloader && <Preloader />} */}
 
 
+            {/* <div className="card"><img className="card__pic" src={friend.url} alt={friend.title} /></div> */}
+
+        </>
     );
 }
 

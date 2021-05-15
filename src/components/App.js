@@ -3,66 +3,71 @@ import Main from './Main';
 import './Main.css';
 // import ImagePopup from './ImagePopup'
 import { getInitialPhotos } from '../utils/Api';
-import { HashRouter, Redirect, Route, Switch, BrowserRouter } from 'react-router-dom';
+import { HashRouter, Route, Switch, BrowserRouter } from 'react-router-dom';
 import Card from './Card'
+import Preloader from './Preloader';
 
 function App() {
     const [cards, setCards] = React.useState([]);
-    const [selectedCard, setSelectedCard] = React.useState({});
-    const [isImagePopupOpen, setIsImagePopupOpen] = React.useState(false);
-    // const [images, setImages] = React.useState([]);
+    const [preloader, setPreloader] = React.useState(false);
+    const [lodding, setLodding] = React.useState(true);
+    // const [selectedCard, setSelectedCard] = React.useState({});
+    // const [isImagePopupOpen, setIsImagePopupOpen] = React.useState(false);
+    const [images, setImages] = React.useState([]);
 
-    const handleCardClick = (card) => {
-        setSelectedCard(card)
-        setIsImagePopupOpen(true);
-    }
+    // const handleCardClick = (card) => {
+    //     setSelectedCard(card)
+    //     setIsImagePopupOpen(true);
+    // }
 
-    function closeImagePopup() {
-        setIsImagePopupOpen(false);
-        setSelectedCard('');
-    }
+    // function closeImagePopup() {
+    //     setIsImagePopupOpen(false);
+    //     setSelectedCard('');
+    // }
 
 
     React.useEffect(() => {
+        setPreloader(true);
+        setLodding(false)
+        setTimeout(() => {
         getInitialPhotos().then((res) => {
             if (res) {
                 // console.log(res)
-                setCards(res.slice(0, 24))                
-                console.log(cards)
-                return res
+                setCards(res.slice(0, 24))
+                // console.log(cards)
+                // return res
+                setPreloader(false);
+                setLodding(true)
             }
-            
+
         })
-        // .then((res) => {
-        //     setImages(res.slice(0, 24))
-        //     console.log(res)
-            
-        // })
+    }, 1000)
     }, []);
 
-    
+    React.useEffect(() => {
+        setImages(cards)
+        console.log(images)
+
+    }, [cards]);
+
+
+
     return (
         <>
             <HashRouter>
                 <Switch>
 
                     <Route exact path="/">
-                        <Main cards={cards}
-                            onCardClick={handleCardClick}
-                            
-                        />
+                        {lodding && <Main cards={cards}
+                            // onCardClick={handleCardClick}
+                        /> }
+                        {preloader && <Preloader />}
                     </Route>
 
                     <Route path="/:id">
-                        {/* <ImagePopup
-                            card={selectedCard}
-                            isOpen={isImagePopupOpen}
-                            closeImagePopup={closeImagePopup}
-                        /> */}
-                        
-                        <Card />
-                        {/* <div className="image__caption">123</div> */}
+                        <Card cards={cards} images={images} />
                     </Route>
+
                 </Switch>
             </HashRouter>
         </>

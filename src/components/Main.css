@@ -1,26 +1,30 @@
-.elements {
+.images {
     display: grid;
     max-width: 1800px;
     margin: 50px auto;
 }
 
-.elements__container {
+.images__container {
     display: flex;
     flex-direction: column; 
 }
 
-.elements__cards-container {
+.images__cards-container {
     display: flex;
     flex-direction: row;
     gap: 15px; 
 }
 
-.image__container {
+.images__card-image {
+    width: 275px;
+}
+
+.images__container {
     display: flex;
     flex-direction: column; 
 }
 
-.image {
+/* .image {
     position: fixed;
     top: 0;
     left: 0;
@@ -45,4 +49,4 @@
     margin: 5px 0 0 0;
     z-index: 2;
   }
-  
+   */
