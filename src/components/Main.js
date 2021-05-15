@@ -9,7 +9,7 @@ function Main({ cards }) {
     // const { path } = useRouteMatch();
     // const { id } = useParams();
 
-    
+
     return (
         <main className="content">
 
@@ -20,7 +20,10 @@ function Main({ cards }) {
                     <div className="images__cards-container">
                         {cards.slice(0, 6).map((card) => (
                             <Link to={`/${card.id}`}>
-                                <img src={card.url} alt={card.title} className="images__card-image" />
+                                <div className="image__container">
+                                    <img src={card.url} alt={card.title} />
+                                    <button className="images__button">Подробнее</button>
+                                </div>
                             </Link>
                         ))}
                     </div>

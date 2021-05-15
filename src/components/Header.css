@@ -1,0 +1,34 @@
+.header {
+    width: 100%;
+    height: 50px;
+    position: fixed;
+    background-color: #e6e6fa;
+    top: 0;
+    left: 0;
+    display: flex;
+    padding-left: 20px;
+    z-index: 200;
+  }
+  
+  .header__button {
+    margin-top: auto;
+    margin-bottom: auto;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    background: url("../images/burger-menu.png") no-repeat;
+    background-size: contain;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+  }
+  
+  .header__button:hover {
+    opacity: 0.8;
+    transition: opacity 0.4s;
+    cursor: pointer;
+  }
+  
+  .header__button:focus {
+    outline: none;
+  }

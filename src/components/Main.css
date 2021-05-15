@@ -1,28 +1,100 @@
 .images {
-    display: grid;
-    max-width: 1800px;
-    margin: 50px auto;
+  display: grid;
+  max-width: 1800px;
+  margin: 50px auto;
 }
 
 .images__container {
-    display: flex;
-    flex-direction: column; 
+  display: flex;
+  flex-direction: column;
 }
 
 .images__cards-container {
-    display: flex;
-    flex-direction: row;
-    gap: 15px; 
-}
-
-.images__card-image {
-    width: 275px;
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
 }
 
 .images__container {
-    display: flex;
-    flex-direction: column; 
+  display: flex;
+  flex-direction: column;
 }
+
+/* .images__card-image {
+  position: relative;
+  width: 275px;
+  background: blue;
+} */
+
+/* .images__card-image:hover {
+    display: block;
+  content: url('../images/123.png');
+  z-index: 3;
+} */
+
+img {
+    position: relative;
+    width: 275px;
+}
+img:before {
+    display: none;
+    content: url('../images/123.png');
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+img:hover:before {
+    display: block;
+    z-index: 3;
+    width: 700px;
+    content: url('../images/123.png');
+}
+
+
+.images__button {
+    font-family: 'Roboto', Arial, sans-serif;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 12px;
+    padding: 13px 11px 15px;
+    width: 182px;
+    display: none;
+    visibility: hidden;
+    position: absolute;
+    top: 0;
+    right: 100%;
+    border-radius: 10px;
+    margin-right: 5px;
+    background: #ffffff;
+    box-shadow: 0px 10px 22px rgba(59, 74, 116, 0.1);
+  }
+  
+  img:hover .images__button {
+    visibility: visible;
+    display: block;
+    z-index: 100;
+  }
+
+/* .images__button-tooltip {
+  font-family: "Roboto", Arial, sans-serif;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 12px;
+  padding: 13px 11px 15px;
+  width: 182px;
+  visibility: hidden;
+  position: absolute;
+  top: 0;
+  right: 100%;
+  border-radius: 10px;
+  margin-right: 5px;
+  background: #ffffff;
+  box-shadow: 0px 10px 22px rgba(59, 74, 116, 0.1);
+} */
 
 /* .image {
     position: fixed;
