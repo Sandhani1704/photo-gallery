@@ -3,6 +3,7 @@ import './Main.css';
 // import Card from './Card';
 import { Link, useRouteMatch } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
+import Img from '../images/123.png';
 
 
 function Main({ cards }) {
@@ -21,8 +22,9 @@ function Main({ cards }) {
                         {cards.slice(0, 6).map((card) => (
                             <Link to={`/${card.id}`}>
                                 <div className="image__container">
-                                    <img src={card.url} alt={card.title} />
-                                    <button className="images__button">Подробнее</button>
+                                    <img src={card.url} alt={card.title} className="image1"/>
+                                    <img src={Img} alt={card.title} className="image2"/>
+                                    <button className="images__button">ПОДРОБНЕЕ</button>
                                 </div>
                             </Link>
                         ))}

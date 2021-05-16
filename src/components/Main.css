@@ -18,65 +18,92 @@
 .images__container {
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
-/* .images__card-image {
+.images__card-image {
+  width: 275px;
+}
+
+.image__container {
   position: relative;
   width: 275px;
-  background: blue;
-} */
-
-/* .images__card-image:hover {
-    display: block;
-  content: url('../images/123.png');
-  z-index: 3;
-} */
-
-img {
-    position: relative;
-    width: 275px;
-}
-img:before {
-    display: none;
-    content: url('../images/123.png');
-    width: 100px;
-    height: 100px;
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-img:hover:before {
-    display: block;
-    z-index: 3;
-    width: 700px;
-    content: url('../images/123.png');
+  height: 275px;
 }
 
+.image__container img {
+  position: absolute; /* абсолютное позиционирование*/
+
+  left: 0; /* выравниваем картинки по левому верхнему углу div-а*/
+
+  top: 0; /* выравниваем картинки по левому верхнему углу div-а */
+  width: 275px;
+  height: 275px;
+}
+
+.image__container img.image2 {
+  /* первая картинка полностью прозрачная */
+
+  opacity: 0;
+
+  /* filter: alpha (opacity=0); */
+}
+
+.image__container:hover img.image2 {
+  /* при наведении курсора первая картинка становится не прозрачной */
+
+  opacity: 1;
+
+  /* filter: alpha (opacity=100); */
+}
+
+.image__container:hover img.image1,
+.image__container img.image1:hover {
+  /* а вторая при наведении курсора становится прозрачной */
+
+  opacity: 0;
+
+  /* filter: alpha (opacity=0); */
+}
 
 .images__button {
-    font-family: 'Roboto', Arial, sans-serif;
-    font-size: 10px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 12px;
-    padding: 13px 11px 15px;
-    width: 182px;
-    display: none;
-    visibility: hidden;
-    position: absolute;
-    top: 0;
-    right: 100%;
-    border-radius: 10px;
-    margin-right: 5px;
-    background: #ffffff;
-    box-shadow: 0px 10px 22px rgba(59, 74, 116, 0.1);
-  }
-  
-  img:hover .images__button {
-    visibility: visible;
-    display: block;
-    z-index: 100;
-  }
+  font-family: "Roboto", Arial, sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+  padding: 13px 11px 15px;
+  /* width: 182px; */
+  display: none;
+  visibility: hidden;
+  position: absolute;
+  top: 0;
+  right: 100%;
+  border-radius: 5px;
+  margin-right: 5px;
+  /* background: #ffffff;
+  box-shadow: 0px 10px 22px rgba(59, 74, 116, 0.1); */
+  cursor: pointer;
+  height: 28px;
+  min-width: 50px;
+  /* padding: 0 12.4444444444px; */
+  /* padding: 12px 12px 12px; */
+  background-color: #f5f5f5;
+}
+
+.image__container .images__button {
+  position: absolute; 
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+}
+
+.image__container:hover .images__button {
+  visibility: visible;
+  display: flex;
+  z-index: 100;
+}
 
 /* .images__button-tooltip {
   font-family: "Roboto", Arial, sans-serif;
