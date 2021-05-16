@@ -3,15 +3,15 @@ import React from 'react';
 import './Header.css';
 import Navigation from './Navigation';
 
-function Header() {
-    const [humburgerOpened, setHumburgerOpened] = React.useState(false);
+function Header({handleBurgerMenuClick}) {
+    
 
     return (
         <header className="header">
             <button className="header__button" onClick={() => {
-                setHumburgerOpened(true);
+                handleBurgerMenuClick();
             }}></button>
-           {humburgerOpened && <Navigation /> } 
+           {/* {humburgerOpened && <Navigation /> }  */}
         </header>
     )
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import Main from './Main';
 import Header from './Header';
 import './Main.css';
-// import ImagePopup from './ImagePopup'
+import './App.css';
 import { getInitialPhotos } from '../utils/Api';
 import { HashRouter, Route, Switch, BrowserRouter } from 'react-router-dom';
 import Card from './Card'
@@ -14,19 +14,20 @@ function App() {
     const [cards, setCards] = React.useState([]);
     const [preloader, setPreloader] = React.useState(false);
     const [lodding, setLodding] = React.useState(true);
-    // const [selectedCard, setSelectedCard] = React.useState({});
-    // const [isImagePopupOpen, setIsImagePopupOpen] = React.useState(false);
     const [images, setImages] = React.useState([]);
+    const [humburgerOpened, setHumburgerOpened] = React.useState(false);
 
-    // const handleCardClick = (card) => {
-    //     setSelectedCard(card)
-    //     setIsImagePopupOpen(true);
-    // }
+    const handleBurgerMenuClick = () => {
+        if (!humburgerOpened) {
+            setHumburgerOpened(true)
+        } else {
+            setHumburgerOpened(false)
+        }
+    }
 
-    // function closeImagePopup() {
-    //     setIsImagePopupOpen(false);
-    //     setSelectedCard('');
-    // }
+    const handleBurgerMenuClose = () => {
+        setHumburgerOpened(false);
+    }
 
 
     React.useEffect(() => {
@@ -57,29 +58,27 @@ function App() {
 
     return (
         <>
-        <Header />
+
             <BrowserRouter>
-            
+                <Header handleBurgerMenuClick={handleBurgerMenuClick} />
+                {humburgerOpened && <Navigation handleBurgerMenuClose={handleBurgerMenuClose} />}
                 <Switch>
-                    {/* <Route exact path="/">
-                    <Navigation />
-                    </Route> */}
 
                     <Route exact path="/">
-                    
+
                         {lodding && <Main cards={cards}
-                        // onCardClick={handleCardClick}
+
                         />}
                         {preloader && <Preloader />}
-                        {/* <Navigation /> */}
-                    </Route>
 
-                    <Route path="/:id">
-                        <Card cards={cards} images={images} />
                     </Route>
 
                     <Route exact path="/about">
                         <About />
+                    </Route>
+
+                    <Route path="/:id">
+                        <Card cards={cards} images={images} />
                     </Route>
 
                 </Switch>
