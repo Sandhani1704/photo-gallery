@@ -9,15 +9,15 @@ import Card from './Card'
 import About from './About'
 import Preloader from './Preloader';
 import Navigation from './Navigation';
+import { PreloaderContext } from '../contexts/PreloaderContext';
 
 function App() {
     const [cards, setCards] = React.useState([]);
     const [preloader, setPreloader] = React.useState(false);
     const [lodding, setLodding] = React.useState(true);
-    const [images, setImages] = React.useState([]);
     const [humburgerOpened, setHumburgerOpened] = React.useState(false);
 
-    const handleBurgerMenuClick = () => {
+    const handleBurgerMenuToggle = () => {
         if (!humburgerOpened) {
             setHumburgerOpened(true)
         } else {
@@ -25,43 +25,64 @@ function App() {
         }
     }
 
-    const handleBurgerMenuClose = () => {
-        setHumburgerOpened(false);
-    }
 
+
+    // React.useEffect(() => {
+    //     setPreloader(true);
+    //     setLodding(false)
+    //     setTimeout(() => {
+    //         getInitialPhotos().then((res) => {
+    //             if (res) {
+
+    //                 setCards(res.slice(0, 24))
+
+    //                 setPreloader(false);
+    //                 setLodding(true)
+    //             }
+
+    //         })
+    //     }, 1000)
+    // }, []);
 
     React.useEffect(() => {
-        setPreloader(true);
-        setLodding(false)
-        setTimeout(() => {
-            getInitialPhotos().then((res) => {
-                if (res) {
-                    // console.log(res)
-                    setCards(res.slice(0, 24))
-                    // console.log(cards)
-                    // return res
-                    setPreloader(false);
-                    setLodding(true)
-                }
-
-            })
-        }, 1000)
+        // we're fetching the review data from the server
+        getInitialPhotos().then((res) => {
+            return res;
+        }).then((res) => {
+            // we're formatting the data and using setData() to update our state
+            const reviews = Object.values(res);
+            setCards(reviews)
+            console.log(reviews)
+        })
     }, []);
 
-    React.useEffect(() => {
-        setImages(cards)
-        console.log(images)
+    // React.useEffect(() => {
+    //     setCards(cards)
 
-    }, [cards]);
+
+    // }, [cards]);
+
+
+    // React.useEffect(() => {
+    //     const pictures = localStorage.getItem('pictures');
+    //     setImages(pictures);
+    //     console.log(images)
+    // }, []);
+
+    // React.useEffect(() => {
+    //     setImages(cards)
+    //     console.log(images)
+
+    // }, [cards]);
 
 
 
     return (
-        <>
+        <PreloaderContext.Provider value={{ preloader, setPreloader }}>
+            <>
 
-            <BrowserRouter>
-                <Header handleBurgerMenuClick={handleBurgerMenuClick} />
-                {humburgerOpened && <Navigation handleBurgerMenuClose={handleBurgerMenuClose} />}
+                <Header handleBurgerMenuToggle={handleBurgerMenuToggle} />
+                <Navigation handleBurgerMenuToggle={handleBurgerMenuToggle} humburgerOpened={humburgerOpened} />
                 <Switch>
 
                     <Route exact path="/">
@@ -77,13 +98,14 @@ function App() {
                         <About />
                     </Route>
 
-                    <Route path="/:id">
-                        <Card cards={cards} images={images} />
+                    <Route exact path="/card/:id">
+                        <Card cards={cards} />
                     </Route>
 
                 </Switch>
-            </BrowserRouter>
-        </>
+
+            </>
+        </PreloaderContext.Provider>
     )
 }
 

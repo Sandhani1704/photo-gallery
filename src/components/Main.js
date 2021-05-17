@@ -1,15 +1,20 @@
 import React from 'react';
 import './Main.css';
-// import Card from './Card';
-import { Link, useRouteMatch } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
-import Img from '../images/123.png';
-
+import { Link, useHistory } from 'react-router-dom';
+import Img from '../images/blue.svg';
+import { PreloaderContext } from '../contexts/PreloaderContext';
 
 function Main({ cards }) {
-    // const { path } = useRouteMatch();
-    // const { id } = useParams();
+    const history = useHistory();
+    const { preloader, setPreloader } = React.useContext(PreloaderContext);
 
+    // const handleCardClick = () => {
+    //     setPreloader(true);
+    //     setTimeout(() => {
+    //         history.push(`/card/${card.id}`)
+    //         setPreloader(false);
+    //     }, 500)
+    // }
 
     return (
         <main className="content">
@@ -20,13 +25,19 @@ function Main({ cards }) {
                     <p>Категория №1</p>
                     <div className="images__cards-container">
                         {cards.slice(0, 6).map((card) => (
-                            <Link to={`/${card.id}`}>
-                                <div className="image__container">
-                                    <img src={card.url} alt={card.title} className="image1"/>
-                                    <img src={Img} alt={card.title} className="image2"/>
-                                    <button className="images__button">ПОДРОБНЕЕ</button>
-                                </div>
-                            </Link>
+                            // <Link to={`/card/${card.id}`}>
+                            <div className="image__container">
+                                <img src={card.url} alt={card.title} className="image image_main" />
+                                <img src={Img} alt={card.title} className="image image_blue" />
+                                <button className="images__button" onClick={() => {
+                                    setPreloader(true);
+                                    setTimeout(() => {
+                                        history.push(`/card/${card.id}`)
+                                        setPreloader(false);
+                                    }, 2000)
+                                }}>ПОДРОБНЕЕ</button>
+                            </div>
+                            // </Link>
                         ))}
                     </div>
                 </div>
@@ -35,13 +46,12 @@ function Main({ cards }) {
                     <div className="images__cards-container">
                         {cards.slice(6, 12).map((card) => (
 
-                            // <Card key={card.id}
-                            //     onCardClick={onCardClick}
-                            //     card={card}
-
-                            // />
-                            <Link to={`/${card.id}`}>
-                                <img src={card.url} alt={card.title} className="images__card-image" />
+                            <Link to={`/card/${card.id}`}>
+                                <div className="image__container">
+                                    <img src={card.url} alt={card.title} className="image image_main" />
+                                    <img src={Img} alt={card.title} className="image image_blue" />
+                                    <button className="images__button">ПОДРОБНЕЕ</button>
+                                </div>
                             </Link>
 
                         ))}
@@ -54,13 +64,12 @@ function Main({ cards }) {
                     <div className="images__cards-container">
                         {cards.slice(12, 18).map((card) => (
 
-                            // <Card key={card.id}
-                            //     onCardClick={onCardClick}
-                            //     card={card}
-
-                            // />
-                            <Link to={`/${card.id}`}>
-                                <img src={card.url} alt={card.title} className="images__card-image" />
+                            <Link to={`/card/${card.id}`}>
+                                <div className="image__container">
+                                    <img src={card.url} alt={card.title} className="image image_main" />
+                                    <img src={Img} alt={card.title} className="image image_blue" />
+                                    <button className="images__button">ПОДРОБНЕЕ</button>
+                                </div>
                             </Link>
 
                         ))}
@@ -72,13 +81,12 @@ function Main({ cards }) {
                     <div className="images__cards-container">
                         {cards.slice(18, 24).map((card) => (
 
-                            // <Card key={card.id}
-                            //     onCardClick={onCardClick}
-                            //     card={card}
-
-                            // />
-                            <Link to={`/${card.id}`}>
-                                <img src={card.url} alt={card.title} className="images__card-image" />
+                            <Link to={`/card/${card.id}`}>
+                                <div className="image__container">
+                                    <img src={card.url} alt={card.title} className="image image_main" />
+                                    <img src={Img} alt={card.title} className="image image_blue" />
+                                    <button className="images__button">ПОДРОБНЕЕ</button>
+                                </div>
                             </Link>
 
                         ))}

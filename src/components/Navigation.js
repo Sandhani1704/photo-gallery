@@ -1,36 +1,72 @@
 import React, { useState } from 'react';
 import './Navigation.css';
-import { Link, useLocation } from 'react-router-dom';
-import { HashRouter, Route, Switch, BrowserRouter, NavLink, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import { PreloaderContext } from '../contexts/PreloaderContext';
 
-function Navigation({ handleBurgerMenuClose }) {
+function Navigation({ handleBurgerMenuToggle, humburgerOpened }) {
     const history = useHistory();
+    const { preloader, setPreloader } = React.useContext(PreloaderContext);
 
-    // const location = useLocation();
+    const handleNavAboutClick = () => {
+        setPreloader(true);
+        setTimeout(() => {
+
+            handleBurgerMenuToggle()
+            history.push(`/about`)
+            setPreloader(false);
+        }, 500)
+
+    }
+
+    const handleNavGalleryClick = () => {
+        setPreloader(true);
+        setTimeout(() => {
+
+            handleBurgerMenuToggle()
+            history.push(`/`)
+            setPreloader(false);
+        }, 500)
+
+    }
+
+    React.useEffect(() => {
+        function handleEscClose(evt) {
+            if (evt.key === 'Escape') {
+                handleBurgerMenuToggle();
+            }
+        }
+
+        function closeByOverlayClick(evt) {
+            if (evt.target.classList.contains('nav__overlay')) {
+                handleBurgerMenuToggle();
+            }
+        }
+
+        document.addEventListener('keydown', handleEscClose);
+        document.addEventListener('click', closeByOverlayClick);
+
+        return () => {
+            document.removeEventListener('keydown', handleEscClose);
+            document.removeEventListener('click', closeByOverlayClick);
+        };
+    });
 
     return (
-        <BrowserRouter>
-            <nav className="nav nav_opened">
+        <>
+            { humburgerOpened && <nav className="nav nav_opened">
 
                 <ul className="nav-list">
-                    {/* <div className="nav__overlay"></div> */}
+                    <div className="nav__overlay"></div>
                     <li className="nav-list__item">
-                        <button className="nav-list__link" onClick={() => {
-                            history.push('/')
-                            handleBurgerMenuClose();
-                        }
-                        }>Галерея</button>
+                        <button className="nav-list__link" onClick={handleNavGalleryClick}>Галерея</button>
                     </li>
                     <li className="nav-list__item">
-                        <button className="nav-list__link" onClick={() => {
-                            history.push('/about')
-                            handleBurgerMenuClose();
-                    }}>Обо мне</button>
+                        <button className="nav-list__link" onClick={handleNavAboutClick}>Обо мне</button>
                     </li>
 
                 </ul>
-            </nav>
-        </BrowserRouter>
+            </nav>}
+        </>
     )
 
 }
