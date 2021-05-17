@@ -56,12 +56,7 @@ function App() {
         })
     }, []);
 
-    // React.useEffect(() => {
-    //     setCards(cards)
-
-
-    // }, [cards]);
-
+    
 
     // React.useEffect(() => {
     //     const pictures = localStorage.getItem('pictures');
