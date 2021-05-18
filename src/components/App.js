@@ -4,7 +4,7 @@ import Header from './Header';
 import './Main.css';
 import './App.css';
 import { getInitialPhotos } from '../utils/Api';
-import { HashRouter, Route, Switch, BrowserRouter } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import Card from './Card'
 import About from './About'
 import Preloader from './Preloader';
@@ -12,7 +12,7 @@ import Navigation from './Navigation';
 import { PreloaderContext } from '../contexts/PreloaderContext';
 
 function App() {
-    const [cards, setCards] = React.useState([]);
+    const [cards, setCards] = React.useState();
     const [preloader, setPreloader] = React.useState(false);
     const [lodding, setLodding] = React.useState(true);
     const [humburgerOpened, setHumburgerOpened] = React.useState(false);
@@ -27,52 +27,43 @@ function App() {
 
 
 
-    // React.useEffect(() => {
-    //     setPreloader(true);
-    //     setLodding(false)
-    //     setTimeout(() => {
-    //         getInitialPhotos().then((res) => {
-    //             if (res) {
-
-    //                 setCards(res.slice(0, 24))
-
-    //                 setPreloader(false);
-    //                 setLodding(true)
-    //             }
-
-    //         })
-    //     }, 1000)
-    // }, []);
-
     React.useEffect(() => {
-        // we're fetching the review data from the server
-        getInitialPhotos().then((res) => {
-            return res;
-        }).then((res) => {
-            // we're formatting the data and using setData() to update our state
-            const reviews = Object.values(res);
-            setCards(reviews)
-            console.log(reviews)
-        })
+        setPreloader(true);
+        setLodding(false)
+        setTimeout(() => {
+            getInitialPhotos().then((res) => {
+                if (res) {
+
+                    setCards(res.slice(0, 24))
+
+                    setPreloader(false);
+                    setLodding(true)
+                }
+
+            })
+        }, 500)
     }, []);
 
-    
-
     // React.useEffect(() => {
-    //     const pictures = localStorage.getItem('pictures');
-    //     setImages(pictures);
-    //     console.log(images)
+    //     // we're fetching the review data from the server
+    //     getInitialPhotos().then((res) => {
+    //         return res.slice(0, 24);
+    //     }).then((response) => {
+    //         return response.json()
+    //         // we're formatting the data and using setData() to update our state
+
+    //     }).then((parsedReviews) => {
+    //         const reviews = Object.values(parsedReviews);
+    //         setCards(reviews)
+    //         console.log(reviews)
+    //     })
     // }, []);
 
-    // React.useEffect(() => {
-    //     setImages(cards)
-    //     console.log(images)
-
-    // }, [cards]);
+   
 
 
 
-    return (
+       return (
         <PreloaderContext.Provider value={{ preloader, setPreloader }}>
             <>
 
@@ -88,13 +79,14 @@ function App() {
                         {preloader && <Preloader />}
 
                     </Route>
-
-                    <Route exact path="/about">
-                        <About />
-                    </Route>
+  
 
                     <Route exact path="/card/:id">
                         <Card cards={cards} />
+                    </Route>
+
+                    <Route exact path="/about">
+                        <About />
                     </Route>
 
                 </Switch>

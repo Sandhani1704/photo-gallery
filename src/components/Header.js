@@ -1,7 +1,6 @@
 import React from 'react';
 
 import './Header.css';
-import Navigation from './Navigation';
 
 function Header({handleBurgerMenuToggle}) {
     
@@ -11,7 +10,7 @@ function Header({handleBurgerMenuToggle}) {
             <button className="header__button" onClick={() => {
                 handleBurgerMenuToggle();
             }}></button>
-           {/* {humburgerOpened && <Navigation /> }  */}
+           
         </header>
     )
 }

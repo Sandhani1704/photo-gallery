@@ -3,16 +3,15 @@ import './Card.css';
 import { useParams, useHistory } from 'react-router-dom';
 import Preloader from './Preloader';
 import { PreloaderContext } from '../contexts/PreloaderContext';
-import { getInitialPhotos } from '../utils/Api';
 
-function Card({ images, cards }) {
+function Card({ cards }) {
     const history = useHistory();
     const { preloader, setPreloader } = React.useContext(PreloaderContext);
 
     let { id } = useParams();
     // the object keys start with 0, but the IDs in the API begin at 1
     id = id - 1;
-    console.log(images)
+    console.log(cards)
 
 
     // let friends = images; 
@@ -20,8 +19,9 @@ function Card({ images, cards }) {
 
     return (
         <>
-            {preloader ? <Preloader /> :
-                <div className="card">
+            {/* {preloader ? <Preloader /> : */}
+                {
+                    cards ? <div className="card">
                     <div className="card__container">
 
                         <div className="card__details">
@@ -34,7 +34,8 @@ function Card({ images, cards }) {
 
                     </div>
                     <button className="button button_type_back" onClick={() => history.push('/')}></button>
-                </div>}
+                </div> : <Preloader /> } 
+                {/* } */}
 
         </>
     );

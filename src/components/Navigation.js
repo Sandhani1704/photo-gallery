@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './Navigation.css';
 import { useHistory } from 'react-router-dom';
 import { PreloaderContext } from '../contexts/PreloaderContext';
 
 function Navigation({ handleBurgerMenuToggle, humburgerOpened }) {
     const history = useHistory();
-    const { preloader, setPreloader } = React.useContext(PreloaderContext);
+    const { setPreloader } = React.useContext(PreloaderContext);
 
     const handleNavAboutClick = () => {
         setPreloader(true);

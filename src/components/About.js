@@ -5,7 +5,7 @@ import Preloader from './Preloader';
 import { PreloaderContext } from '../contexts/PreloaderContext';
 
 function About() {
-    const { preloader, setPreloader } = React.useContext(PreloaderContext);
+    const { preloader } = React.useContext(PreloaderContext);
     return (
         <>
             {preloader ? <Preloader />
