@@ -2,6 +2,7 @@ import React from 'react';
 import './Navigation.css';
 import { useHistory } from 'react-router-dom';
 import { PreloaderContext } from '../contexts/PreloaderContext';
+import avatar from '../images/123.png'
 
 function Navigation({ handleBurgerMenuToggle, humburgerOpened }) {
     const history = useHistory();
@@ -53,19 +54,35 @@ function Navigation({ handleBurgerMenuToggle, humburgerOpened }) {
 
     return (
         <>
-            { humburgerOpened && <nav className="nav nav_opened">
+            {/* { humburgerOpened && */}
+                <div className={`humburger-menu ${humburgerOpened && 'humburger-menu_opened'}`}>
+                    <div className='humburger-menu__overlay'></div>
+                    <div className="humburger-menu__container">
 
-                <ul className="nav-list">
-                    <div className="nav__overlay"></div>
-                    <li className="nav-list__item">
-                        <button className="nav-list__link" onClick={handleNavGalleryClick}>Галерея</button>
-                    </li>
-                    <li className="nav-list__item">
-                        <button className="nav-list__link" onClick={handleNavAboutClick}>Обо мне</button>
-                    </li>
+                    <div className='profile'>
+                        <img className='profile__avatar' src={avatar} alt='Аватар' />
+                        <div className='profile__info'>
+                        <p className='profile__name'>Анна Галкина</p>
+                        <p className='profile__email'>angalkina1704@gmail.com</p>
+                        </div>
+                    </div>
 
-                </ul>
-            </nav>}
+                    <nav className="nav">
+                        <ul className="nav-list">
+
+                            <li className="nav-list__item">
+                                <button className="nav-list__link" onClick={handleNavGalleryClick}>Галерея</button>
+                            </li>
+                            <li className="nav-list__item">
+                                <button className="nav-list__link" onClick={handleNavAboutClick}>Обо мне</button>
+                            </li>
+
+                        </ul>
+                        
+                    </nav>
+                    </div>
+                </div>
+                {/* } */}
         </>
     )
 
