@@ -2,24 +2,18 @@ import React from 'react';
 import './Navigation.css';
 import { useHistory } from 'react-router-dom';
 import { PreloaderContext } from '../contexts/PreloaderContext';
-import avatar from '../images/123.png'
+import avatar from '../images/avatar.jpg'
 
 function Navigation({ handleBurgerMenuToggle, humburgerOpened }) {
     const history = useHistory();
     const { setPreloader } = React.useContext(PreloaderContext);
 
-    const handleNavAboutClick = () => {
-        setPreloader(true);
-        setTimeout(() => {
-
-            handleBurgerMenuToggle()
-            history.push(`/about`)
-            setPreloader(false);
-        }, 500)
-
+    function handleNavAboutClick() {
+        handleBurgerMenuToggle()
+        history.push(`/about`)
     }
 
-    const handleNavGalleryClick = () => {
+    function handleNavGalleryClick() {
         setPreloader(true);
         setTimeout(() => {
 
@@ -38,7 +32,7 @@ function Navigation({ handleBurgerMenuToggle, humburgerOpened }) {
         }
 
         function closeByOverlayClick(evt) {
-            if (evt.target.classList.contains('nav__overlay')) {
+            if (evt.target.classList.contains('humburger-menu__overlay')) {
                 handleBurgerMenuToggle();
             }
         }
@@ -53,37 +47,35 @@ function Navigation({ handleBurgerMenuToggle, humburgerOpened }) {
     });
 
     return (
-        <>
-            {/* { humburgerOpened && */}
-                <div className={`humburger-menu ${humburgerOpened && 'humburger-menu_opened'}`}>
-                    <div className='humburger-menu__overlay'></div>
-                    <div className="humburger-menu__container">
 
-                    <div className='profile'>
-                        <img className='profile__avatar' src={avatar} alt='Аватар' />
-                        <div className='profile__info'>
+        <div className={`humburger-menu ${humburgerOpened && 'humburger-menu_opened'}`}>
+            <div className='humburger-menu__overlay'></div>
+            <div className="humburger-menu__container">
+
+                <div className='profile'>
+                    <img className='profile__avatar' src={avatar} alt='Аватар' />
+                    <div className='profile__info'>
                         <p className='profile__name'>Анна Галкина</p>
                         <p className='profile__email'>angalkina1704@gmail.com</p>
-                        </div>
-                    </div>
-
-                    <nav className="nav">
-                        <ul className="nav-list">
-
-                            <li className="nav-list__item">
-                                <button className="nav-list__link" onClick={handleNavGalleryClick}>Галерея</button>
-                            </li>
-                            <li className="nav-list__item">
-                                <button className="nav-list__link" onClick={handleNavAboutClick}>Обо мне</button>
-                            </li>
-
-                        </ul>
-                        
-                    </nav>
                     </div>
                 </div>
-                {/* } */}
-        </>
+
+                <nav className="nav">
+                    <ul className="nav-list">
+
+                        <li className="nav-list__item">
+                            <button className="nav-list__link" onClick={handleNavGalleryClick}>Галерея</button>
+                        </li>
+                        <li className="nav-list__item">
+                            <button className="nav-list__link" onClick={handleNavAboutClick}>Обо мне</button>
+                        </li>
+
+                    </ul>
+
+                </nav>
+            </div>
+        </div>
+
     )
 
 }

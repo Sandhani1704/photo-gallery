@@ -1,21 +1,19 @@
 import React from 'react';
 import Main from './Main';
 import Header from './Header';
-import './Main.css';
-import './App.css';
-import { getInitialPhotos } from '../utils/Api';
-import { Route, Switch } from 'react-router-dom';
 import Card from './Card'
 import About from './About'
 import Preloader from './Preloader';
 import Navigation from './Navigation';
+import { getInitialPhotos } from '../utils/Api';
+import { Route, Switch, useLocation } from 'react-router-dom';
 import { PreloaderContext } from '../contexts/PreloaderContext';
 
 function App() {
     const [cards, setCards] = React.useState();
     const [preloader, setPreloader] = React.useState(false);
-    const [lodding, setLodding] = React.useState(true);
     const [humburgerOpened, setHumburgerOpened] = React.useState(false);
+    const location = useLocation()
 
     const handleBurgerMenuToggle = () => {
         if (!humburgerOpened) {
@@ -25,11 +23,9 @@ function App() {
         }
     }
 
-
-
     React.useEffect(() => {
         setPreloader(true);
-        setLodding(false)
+
         setTimeout(() => {
             getInitialPhotos().then((res) => {
                 if (res) {
@@ -37,33 +33,18 @@ function App() {
                     setCards(res.slice(0, 24))
 
                     setPreloader(false);
-                    setLodding(true)
+
                 }
 
             })
         }, 500)
-    }, []);
+    }, [cards]);
 
-    // React.useEffect(() => {
-    //     // we're fetching the review data from the server
-    //     getInitialPhotos().then((res) => {
-    //         return res.slice(0, 24);
-    //     }).then((response) => {
-    //         return response.json()
-    //         // we're formatting the data and using setData() to update our state
+    React.useEffect(() => {
+        setPreloader(false)
+      }, [location])
 
-    //     }).then((parsedReviews) => {
-    //         const reviews = Object.values(parsedReviews);
-    //         setCards(reviews)
-    //         console.log(reviews)
-    //     })
-    // }, []);
-
-   
-
-
-
-       return (
+    return (
         <PreloaderContext.Provider value={{ preloader, setPreloader }}>
             <>
 
@@ -73,16 +54,14 @@ function App() {
 
                     <Route exact path="/">
 
-                        {lodding && <Main cards={cards}
+                        {preloader ? <Main cards={cards}
 
-                        />}
-                        {preloader && <Preloader />}
-
+                        /> : <Preloader />}
+                        
                     </Route>
-  
 
                     <Route exact path="/card/:id">
-                        <Card cards={cards} />
+                    { preloader ? <Card cards={cards} /> : <Preloader />}
                     </Route>
 
                     <Route exact path="/about">

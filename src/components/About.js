@@ -1,26 +1,26 @@
 import React from 'react';
 import './About.css';
-import aboutAvatar from '../images/123.png'
-import Preloader from './Preloader';
-import { PreloaderContext } from '../contexts/PreloaderContext';
+import avatar from '../images/avatar2.jpg'
 
 function About() {
-    const { preloader } = React.useContext(PreloaderContext);
+
     return (
         <>
-            {preloader ? <Preloader />
-                : <section className='about'>
-                    <div className='about__avatar-conteiner'>
-                        <img className='about__avatar' src={aboutAvatar} alt='Аватар' />
-                    </div>
-                    <div className='about__text-conteiner'>
-                        <h1 className='about__title'>Об авторе</h1>
-                        <p className='about__description'>Это блок с описанием автора проекта. Здесь следует указать,
-                        как вас зовут, чем вы занимаетесь, какими технологиями разработки владеете.
+            <section className='about'>
+                <div className='about__avatar-conteiner'>
+                    <img className='about__avatar' src={avatar} alt='Аватар' />
+                </div>
+                <div className='about__text-conteiner'>
+                    <h1 className='about__title'>Обо мне</h1>
+                    <p className='about__description'>Я начинающий Front-end-разработчик. 
+                    Мне очень нравится развиваться в данной области, узнавать как можно больше нового. 
+                    Хочу построить карьеру на том, что мне действительно интересно. 
+                    За время обучения в Яндекс Практикуме научилась создавать веб-приложения с использованием HTML, CSS, JavaScript, React, Node.js
                 </p>
 
-                    </div>
-                </section>}
+                </div>
+            </section>
+
         </>
     )
 }

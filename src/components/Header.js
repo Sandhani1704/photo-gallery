@@ -3,7 +3,6 @@ import React from 'react';
 import './Header.css';
 
 function Header({handleBurgerMenuToggle}) {
-    
 
     return (
         <header className="header">

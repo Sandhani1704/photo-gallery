@@ -6,15 +6,18 @@ import { PreloaderContext } from '../contexts/PreloaderContext';
 
 function Main({ cards }) {
     const history = useHistory();
-    const { setPreloader } = React.useContext(PreloaderContext);
-
+    const { preloader, setPreloader } = React.useContext(PreloaderContext);
+    
     function handleCardClick(card) {
         setPreloader(true);
         setTimeout(() => {
             history.push(`/card/${card.id}`)
+            console.log(preloader)
             setPreloader(false);
         }, 500)
     }
+
+    
 
     return (
         <main className="content">
@@ -22,7 +25,7 @@ function Main({ cards }) {
             <section className="images">
 
                 <div className="images__container">
-                    <p>Категория №1</p>
+                { cards && <p className="images__title">Категория №1</p> }
                     <div className="images__cards-container">
                         { cards && cards.slice(0, 6).map((card) => (
                             
@@ -36,7 +39,7 @@ function Main({ cards }) {
                     </div>
                 </div>
                 <div className="images__container">
-                    <p>Категория №2</p>
+                { cards && <p className="images__title">Категория №2</p> }
                     <div className="images__cards-container">
                         { cards && cards.slice(6, 12).map((card) => (
 
@@ -52,7 +55,7 @@ function Main({ cards }) {
 
                 <div className="images__container">
 
-                    <p>Категория №3</p>
+                { cards && <p className="images__title">Категория №3</p> }
                     <div className="images__cards-container">
                         {cards && cards.slice(12, 18).map((card) => (
 
@@ -67,7 +70,7 @@ function Main({ cards }) {
                 </div>
 
                 <div className="images__container">
-                    <p>Категория №4</p>
+                { cards && <p className="images__title">Категория №4</p> }
                     <div className="images__cards-container">
                         {cards && cards.slice(18, 24).map((card) => (
 
